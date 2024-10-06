@@ -262,23 +262,23 @@ class `2024-10-06` {
             val mapVals = mutableMapOf<Node, Node>()
             var p = node
             while (p != null) {
-                val clone = getOrCreate(mapVals, p.`val`, p)
+                val clone = getOrCreate(mapVals, p)
                 p.next?.let {
-                    clone.next = getOrCreate(mapVals, it.`val`, it)
+                    clone.next = getOrCreate(mapVals, it)
                 }
                 p.random?.let {
-                    clone.random = getOrCreate(mapVals, it.`val`, it)
+                    clone.random = getOrCreate(mapVals, it)
                 }
                 p = p.next
             }
             return mapVals.get(node)
         }
 
-        fun getOrCreate(map: MutableMap<Node, Node>, value: Int, address: Node): Node {
+        fun getOrCreate(map: MutableMap<Node, Node>, address: Node): Node {
             map.get(address)?.let {
                 return it
             } ?: run {
-                val newone = Node(value)
+                val newone = Node(address.`val`)
                 map.put(address, newone)
                 return newone
             }
