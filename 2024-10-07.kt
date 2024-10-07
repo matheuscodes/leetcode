@@ -131,4 +131,39 @@ class `2024-10-07` {
             return if(this[scopeBottom] == target) scopeBottom else if(this[scopeTop] == target) scopeTop else -1
         }
     }
+
+    /* https://leetcode.com/problems/koko-eating-bananas/description/ */
+    class Solution875 {
+        fun minEatingSpeed(piles: IntArray, h: Int): Int {
+            if(h == piles.size) {
+                return piles.max()
+            } else if(h > piles.size) {
+                var right = piles.max()
+                var left = kotlin.math.ceil(right / h.toDouble()).toInt()
+                while ((right - left) > 1) {
+                    val trial = left + ((right - left) / 2)
+                    val hours = piles.calculateHours(trial)
+                    if(hours > h) {
+                        left = trial
+                    } else {
+                        right = trial
+                    }
+                }
+                val hleft = piles.calculateHours(left)
+                val hright = piles.calculateHours(right)
+                if(hleft <= h && hright <= h) return minOf(left, right)
+                if(hleft <= h) return left
+                if(hright <= h) return right
+                return -1
+            } else {
+                return -1
+            }
+        }
+
+        fun IntArray.calculateHours(k: Int): Int {
+            return this.fold(0) { acc, i ->
+                acc + i / k + if (i % k == 0) 0 else 1
+            }
+        }
+    }
 }
