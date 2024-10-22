@@ -1,6 +1,6 @@
 class `2024-10-22` {
-    /* https://leetcode.com/problems/pacific-atlantic-water-flow/description/ 417 */
-    class Solution {
+    /* https://leetcode.com/problems/pacific-atlantic-water-flow/description/ */
+    class Solution417 {
         fun pacificAtlantic(heights: Array<IntArray>): List<List<Int>> {
             val list = mutableListOf<Pair<Int, Int>>()
             for(i in heights.indices) {
@@ -24,7 +24,7 @@ class `2024-10-22` {
                 nextVisiting.addAll(getNext(heights, it))
             }
             nextVisiting.removeAll { visited.contains(it) }
-            return flow(heights, nextVisiting, visited)
+            return flow(heights, found, nextVisiting, visited)
         }
 
         fun getNext(board: Array<IntArray>, point: Pair<Int, Int>): List<Pair<Int, Int>> {
